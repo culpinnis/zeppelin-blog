@@ -10,3 +10,5 @@ There are some parts in the zeppelin-server.yaml that can/must be adjusted when 
 Furthermore, in the deployment, you have to change the Container image to the name of your server image.
 We also added PVC to have persistent storage for settings and notebooks.
 If you are using our images, you can use this yaml directly. If you just want to play around without persistent storage, remove the volumeMounts for notebook and settings as well as the PVC entries.
+
+![Kubernetes Deployment of Zeppelin](../img/kubernetes.png)

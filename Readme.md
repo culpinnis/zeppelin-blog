@@ -2,7 +2,7 @@
 This repository includes the necessary files and instructions to build and
 run Apache Zeppelin in Kubernetes. In addition we will also create a
 Apache Spark distribution that supports S3 storage.
-You can read the full story on this medium article.
+You can read the full story on [this](ToDo) medium article.
  (Diagramm einfügen)
 
 ## Preparation
@@ -24,7 +24,10 @@ cd zeppelin
 git checkout tp-release-v0.10.0
 ```
 
-Please follow the build order as purposed here.
+Please follow the build order as purposed in this readme.
+
+![Dockerfiles and Dockerimages of Zeppelin](img/dockerfiles.png)
+
 
 ## Zeppelin Distribution
 
@@ -64,3 +67,5 @@ This image will be executed by the Zeppelin interpreter to run your Spark jobs. 
 You can find the Dockerfile to build Spark with S3 support [here](spark/).
 
 # Kubernetes Deployment
+![Kubernetes Deployment of Zeppelin](img/kubernetes.png)
+You can find an example deployment file in [deployment](deployment/).

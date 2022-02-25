@@ -6,7 +6,7 @@ Our modification to the original Dockerfile is the usage of mamba instead of con
 
 ## Instructions
 You should set the version to the version of Zeppelin used in the Zeppelin distribution image.
-You have to set the REPO build-arg to the name of your repository (or Dockerhub account).
+You have to set the REPO build-arg to the name of your repository (e.g. your Dockerhub account).
 
 ```bash
 # Change it

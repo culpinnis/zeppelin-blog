@@ -26,7 +26,7 @@ Zeppelin version.
 The default configuration will build a snapshot of Zeppelin 0.11.0.
 
 # Manual execution
-If you want to build all images by youself, you can follow this instructions
+If you want to build all images by yourself, you can follow the instructions
 in this part of the Readme.
 
 ## Zeppelin Distribution
@@ -62,9 +62,10 @@ All required files can be found at [zeppelin-interpreter](zeppelin-interpreter/)
 
 ## Spark Image
 
-This image will be executed by the Zeppelin interpreter to run your Spark jobs. That means your Spark notebooks are interpreted by the Zeppelin interpreter container but executed in separated Spark containers (see image XXX).
+This image will be executed by the Zeppelin interpreter to run your Spark jobs. That means your Spark notebooks are interpreted by the Zeppelin interpreter container but executed in separated Spark containers.
 You can find the Dockerfile to build Spark with S3 support [here](spark/).
 
 # Kubernetes Deployment
 ![Kubernetes Deployment of Zeppelin](img/kubernetes.png)
+
 You can find an example deployment file in [deployment](deployment/).

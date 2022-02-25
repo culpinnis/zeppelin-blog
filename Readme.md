@@ -8,7 +8,7 @@ You can read the full story on [this](ToDo) medium article.
 
 # Build images with script (easiest option)
 This git includes two scripts to build all images in the right order.
-It is possible to change the Zeppelin and Spark and Hadoop versions in the script.
+It is possible to change the Zeppelin, Spark and Hadoop versions in the script.
 Furthermore, you can use those scripts as templates for your own build pipelines.
 
 ## build_from_binary.sh

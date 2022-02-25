@@ -3,34 +3,33 @@ This repository includes the necessary files and instructions to build and
 run Apache Zeppelin in Kubernetes. In addition we will also create a
 Apache Spark distribution that supports S3 storage.
 You can read the full story on [this](ToDo) medium article.
- (Diagramm einfügen)
-
-## Preparation
-
-We will use the source code of Zeppelin to apply our modifications. So please get the version you want to use from the official GitHub page. In this example we will use 0.10.0.
-
-```bash
-wget https://github.com/apache/zeppelin/archive/refs/tags/v0.10.0.zip
-unzip v0.10.0.zip
-cd zeppelin-0.10.0
-```
-
-We already prepared a Apache Zeppelin source code with all Dockerfiles included at https://github.com/ThinkportRepo/zeppelin/tree/tp-release-v0.10.0.
-You can clone this repo if you want, but please note that we will most likely not adapt changes to newer Apache Zeppelin versions.
-
-```bash
-git clone https://github.com/ThinkportRepo/zeppelin/
-cd zeppelin
-git checkout tp-release-v0.10.0
-```
-
-Please follow the build order as purposed in this readme.
 
 ![Dockerfiles and Dockerimages of Zeppelin](img/dockerfiles.png)
 
+# Build with script
+This git includes two scripts to build all images in the right order.
+It is possible to change the Zeppelin and Spark and Hadoop versions in the script.
+Furthermore, you can use those scripts as templates for your own build pipelines.
+
+## build_from_binary.sh
+This script will download a binary distribution of Zeppelin to create
+the Zeppelin distribution image.
+Please check the Zeppelin (and Spark) download page for valid options.
+The default configuration of this script will build Zeppelin version 0.10.0
+
+## build_from_source.sh
+This script will download Zeppelin from the official git and checkout a
+configured commit. Then it will start to compile the Zeppelin from source.
+This is useful if you want to use a certain version of Zeppelin.
+Please note, that you have to add -SNAPSHOT (in capital letters) to the
+Zeppelin version.
+The default configuration will build a snapshot of Zeppelin 0.11.0.
+
+# Manual execution
+If you want to build all images by youself, you can follow this instructions
+in this part of the Readme.
 
 ## Zeppelin Distribution
-
 First, we will create the distribution image which is a complete build of Zeppelin and all available interpreters. Parts of this distribution will be used in the following image builds.
 
 There are three options to get a Zeppelin Distribution as base image.

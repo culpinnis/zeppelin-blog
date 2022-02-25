@@ -13,7 +13,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-FROM zeppelin-distribution:latest AS zeppelin-distribution
+# Zeppelin version
+ARG version=0.10.0
+ARG REPO=myrepo
+
+FROM ${REPO}/zeppelin-distribution:${version} AS zeppelin-distribution
 
 FROM ubuntu:20.04
 
@@ -23,8 +27,7 @@ LABEL maintainer="Apache Software Foundation <dev@zeppelin.apache.org>"
 LABEL org.opencontainers.image.authors="Apache Software Foundation <dev@zeppelin.apache.org>"
 LABEL org.opencontainers.image.vendor="Thinkport GmbH <kontakt@thinkport.digital>"
 LABEL org.opencontainers.image.source https://github.com/ThinkportRepo/zeppelin
-# Zeppelin version
-ARG version=0.10.0
+
 
 ENV VERSION="${version}" \
     ZEPPELIN_HOME="/opt/zeppelin"

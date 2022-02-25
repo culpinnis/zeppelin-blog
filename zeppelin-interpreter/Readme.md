@@ -3,15 +3,14 @@ The Zeppelin interpreter image will be used to interpret the content of your not
 
 Our modification to the original Dockerfile is the usage of mamba instead of conda because when including all interpreters conda will calculate the environment forever without any solution. Mamba is already implemented in the scripts/docker/zeppelin/bin/Dockerfile by the Zeppelin devs and we just took it from there.
 
+
 ## Instructions
-Copy the content of this folder to scripts/docker/zeppelin-interpreter in the Zeppelin source.
+You should set the version to the version of Zeppelin used in the Zeppelin distribution image.
+You have to set the REPO build-arg to the name of your repository (or Dockerhub account).
 
 ```bash
-cd ..
-cd zeppelin-interpreter
-# insert/replace dockerfile
-# insert env_python3_with_R.yaml
-# insert pip_packages.txt
-docker build -t yourrepo/zeppelin-interpreter:0.10.0 .
-docker push yourrepo/zeppelin-interpreter:0.10.0
+# Change it
+export version=0.10.0
+docker build --build-arg version=$version --build-arg REPO=yourrepo -t yourrepo/zeppelin-interpreter:${version} .
+docker push yourrepo/zeppelin-interpreter:${version}
 ```

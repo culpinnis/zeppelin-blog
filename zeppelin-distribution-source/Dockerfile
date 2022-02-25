@@ -13,12 +13,15 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-#
 
-
+ARG commit="aa32f62"
+FROM alpine/git as intermediate
+WORKDIR /zeppelin
+RUN git clone https://github.com/apache/zeppelin
+RUN cd zeppelin && git checkout ${commit}
 
 FROM maven:3.5-jdk-8 as builder
-ADD . /workspace/zeppelin
+COPY --from=intermediate /zeppelin/zeppelin /workspace/zeppelin
 WORKDIR /workspace/zeppelin
 # Allow npm and bower to run with root privileges
 RUN echo "unsafe-perm=true" > ~/.npmrc && \

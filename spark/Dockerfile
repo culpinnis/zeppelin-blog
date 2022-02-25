@@ -13,11 +13,16 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-FROM yourrepo/zeppelin-interpreter:0.10.0
+# Zeppelin version
+ARG version="0.10.0"
+ARG REPO=myrepo
+FROM ${REPO}/zeppelin-interpreter:${version}
 
 #We need to adjust the patches of hadoop below when changing ther verison
-ENV SPARK_VERSION=3.2.0
-ENV HADOOP_VERSION=3.2
+ARG SPARK_VERSION=3.1.3
+ARG HADOOP_VERSION=3.2
+ARG HADOOP_VERSION_MINOR=0
+ARG AWS_SDK_VERSION=1.11.271
 
 WORKDIR /
 USER 0
@@ -59,11 +64,11 @@ RUN curl https://repo1.maven.org/maven2/io/delta/delta-core_2.12/1.1.0/delta-cor
 
 
 # remove old versions from aws. jars
-RUN rm -f /opt/spark/jars/aws-java-sdk-bundle-1.11.*.jar && rm -f /opt/spark/jars/hadoop-aws-3.2.0.jar
+RUN rm -f /opt/spark/jars/aws-java-sdk-bundle-1.11.*.jar && rm -f /opt/spark/jars/hadoop-aws-*.jar
 
 # Download all jars for hadoop s3 integration
-RUN curl https://repo1.maven.org/maven2/org/apache/hadoop/hadoop-aws/3.3.1/hadoop-aws-3.3.1.jar -o /opt/spark/jars/hadoop-aws-3.3.1.jar && \
-    curl https://repo1.maven.org/maven2/com/amazonaws/aws-java-sdk-bundle/1.11.901/aws-java-sdk-bundle-1.11.901.jar -o /opt/spark/jars/aws-java-sdk-bundle-1.11.901.jar && \
+RUN curl https://repo1.maven.org/maven2/org/apache/hadoop/hadoop-aws/${HADOOP_VERSION}.${HADOOP_VERSION_MINOR}/hadoop-aws-${HADOOP_VERSION}.${HADOOP_VERSION_MINOR}.jar -o /opt/spark/jars/hadoop-aws-${HADOOP_VERSION}.${HADOOP_VERSION_MINOR}.jar && \
+    curl https://repo1.maven.org/maven2/com/amazonaws/aws-java-sdk-bundle/${AWS_SDK_VERSION}/aws-java-sdk-bundle-${AWS_SDK_VERSION}.jar -o /opt/spark/jars/aws-java-sdk-bundle-${AWS_SDK_VERSION}.jar && \
     curl https://repo1.maven.org/maven2/org/wildfly/openssl/wildfly-openssl/1.0.7.Final/wildfly-openssl-1.0.7.Final.jar -o /opt/spark/jars/wildfly-openssl-1.0.7.Final.jar
 
 

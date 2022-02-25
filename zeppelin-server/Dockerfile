@@ -13,7 +13,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-FROM zeppelin-distribution:latest AS zeppelin-distribution
+# Zeppelin version
+ARG version="0.10.0"
+ARG REPO=myrepo
+FROM ${REPO}/zeppelin-distribution:${version} AS zeppelin-distribution
 
 # Prepare all interpreter settings for Zeppelin server
 # This steps are not needed, if you you add only specific interpreters settings to your image
@@ -24,12 +27,12 @@ RUN mkdir -p /opt/zeppelin/interpreter && \
     find . -name 'interpreter-setting.json' -exec cp --parents \{\} /opt/zeppelin/interpreter \;
 
 FROM ubuntu:20.04
+ARG version="0.10.0"
 LABEL maintainer="Apache Software Foundation <dev@zeppelin.apache.org>"
 LABEL org.opencontainers.image.authors="Apache Software Foundation <dev@zeppelin.apache.org>"
 LABEL org.opencontainers.image.vendor="Thinkport GmbH <kontakt@thinkport.digital>"
 LABEL org.opencontainers.image.source https://github.com/ThinkportRepo/zeppelin
-# Zeppelin version
-ARG version="0.10.0"
+
 
 RUN set -ex && \
     apt-get -y update && \
@@ -50,13 +53,13 @@ ENV LANG=en_US.UTF-8 \
     ZEPPELIN_WAR_TEMPDIR="/tmp/webapps"
 
 # Copy Zeppelin related files
-COPY --from=zeppelin-distribution /opt/zeppelin/zeppelin-web-${VERSION}.war ${ZEPPELIN_HOME}/
-COPY --from=zeppelin-distribution /opt/zeppelin/zeppelin-web-angular-${VERSION}.war ${ZEPPELIN_HOME}/
+COPY --from=zeppelin-distribution /opt/zeppelin/zeppelin-web-${version}.war ${ZEPPELIN_HOME}/
+COPY --from=zeppelin-distribution /opt/zeppelin/zeppelin-web-angular-${version}.war ${ZEPPELIN_HOME}/
 COPY --from=zeppelin-distribution /opt/zeppelin/conf ${ZEPPELIN_HOME}/conf
 COPY --from=zeppelin-distribution /opt/zeppelin/bin ${ZEPPELIN_HOME}/bin
 COPY --from=zeppelin-distribution /opt/zeppelin/lib ${ZEPPELIN_HOME}/lib
 COPY --from=zeppelin-distribution /opt/zeppelin/plugins ${ZEPPELIN_HOME}/plugins
-COPY --from=zeppelin-distribution /opt/zeppelin/interpreter/zeppelin-interpreter-shaded-${VERSION}.jar ${ZEPPELIN_HOME}/interpreter/zeppelin-interpreter-shaded-${VERSION}.jar
+COPY --from=zeppelin-distribution /opt/zeppelin/interpreter/zeppelin-interpreter-shaded-${version}.jar ${ZEPPELIN_HOME}/interpreter/zeppelin-interpreter-shaded-${version}.jar
 # copy example notebooks
 COPY --from=zeppelin-distribution /opt/zeppelin/notebook ${ZEPPELIN_HOME}/notebook
 # copy k8s files

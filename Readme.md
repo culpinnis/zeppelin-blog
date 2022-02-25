@@ -6,7 +6,7 @@ You can read the full story on [this](ToDo) medium article.
 
 ![Dockerfiles and Dockerimages of Zeppelin](img/dockerfiles.png)
 
-# Build images with script
+# Build images with script (easiest option)
 This git includes two scripts to build all images in the right order.
 It is possible to change the Zeppelin and Spark and Hadoop versions in the script.
 Furthermore, you can use those scripts as templates for your own build pipelines.
